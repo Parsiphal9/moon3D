@@ -118,7 +118,7 @@ body{
         font-size: 2.5vw;
     }
     .fecha{
-        top: 90%;
+        top: 95%;
         width: 100%;
         text-align: center;
         font-size: 5vw;
@@ -126,7 +126,7 @@ body{
     }
     .botones{
         position: absolute;
-        top:65%;
+        top:85%;
         margin: 0 1rem;
         width: 90%;
         height: 2.5rem;
