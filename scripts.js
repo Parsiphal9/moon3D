@@ -15,6 +15,7 @@ let alto;
 let puerto;
 var angulo=0;
 var angBuffer=0;
+var luminous = 0;
 // Pare controlar la rotación
 var moonSpinig = false;
 var animacion;
@@ -77,9 +78,12 @@ function setDay(stringFecha){
     var gapp = (fecha - fullmoon) % cicloLunar;
     angulo = 2.0*Math.PI * (gapp / cicloLunar);
     dia = gapp /msADias;
-    dayTag.innerText = Math.trunc(Math.floor(dia)/29.5*10000)/100;
+    luminous = Math.abs( Math.cos( Math.PI * (gapp / cicloLunar))); // 22Feb2024 :3
+    //console.log("Luminous = " + gapp + " / " + cicloLunar + " = " + gapp/cicloLunar  );
+    //dayTag.innerText = Math.trunc(Math.floor(dia)/29.5*10000)/100;
+    dayTag.innerHTML = Math.round(luminous * 10000) / 100;
     dateTag.innerText= fecha.toLocaleString('es-MX',{weekday: 'long',day: 'numeric',month: 'long',year: 'numeric',hour: '2-digit',minute: '2-digit',second: '2-digit'});
-    console.log("Día: ",dia);
+    //console.log("Día: ",dia);
     dibujar();
 }
 
@@ -87,13 +91,13 @@ function modDay(operador){
     funciones={
         add: () => {
             fecha.setDate(fecha.getDate()+1);
-            console.log(fecha);
+            //console.log(fecha);
             clutch = operador
             setDay();
             },
         subs: () => {
             fecha.setDate(fecha.getDate()-1);
-            console.log(fecha);
+            //console.log(fecha);
             clutch = operador
             setDay();
             },
@@ -111,7 +115,7 @@ function dibujar(){
 
     angBuffer > (Math.PI*2)? angBuffer=0 : angBuffer;
     (angBuffer < 0) ? angBuffer = Math.PI*2 : angBuffer;
-    contador.innerHTML = angulo;
+    contador.innerHTML = Math.round(angulo * 100 ) / 100;
     const distanciaSolLuna = 6;
     let posX = distanciaSolLuna * Math.sin((angBuffer*-1.0));
     let posY = 0;
@@ -120,7 +124,7 @@ function dibujar(){
     let angDiff = Math.abs(angulo - angBuffer);
     let step = 0.06 * angDiff;
 
-    console.log("angDiff: ",angDiff);
+    //console.log("angDiff: ",angDiff);
     //console.log("angBuffer",angBuffer);
     //console.log("angulo",angulo);
      movement={
